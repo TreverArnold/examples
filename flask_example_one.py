@@ -1,6 +1,15 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, jsonify
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
+
+@app.route("/json", methods = ['POST'])
+def example():
+    data = request.json
+    data['example'] = data['example'][::-1]
+    return jsonify(data)
 
 @app.route("/404")
 def get_aborted():
